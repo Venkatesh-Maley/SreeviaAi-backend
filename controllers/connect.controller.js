@@ -22,8 +22,9 @@ const createConnect = async (req, res) => {
     await newConnect.save();
     return res.status(201).json({ message: 'Connection created successfully', data: newConnect });
   } catch (error) {
-    console.error('Error creating connection:', error);
-    return res.status(500).json({ message: 'Internal server error' });
+    console.error(`Error while submitting contact form: ${error.message}`);  // Log the error
+    res.status(500).json({ success: false, message: "Server error. Please try again later." });
+
   }
 };
 
