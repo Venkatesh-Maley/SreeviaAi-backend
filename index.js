@@ -7,7 +7,14 @@ const connectRoutes = require('./routes/connect.route');
 
 
 const app = express()
-app.use(cors());
+
+const corsOptions = {
+    origin: 'https://sreevia-ai-main.vercel.app',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+  };
+app.use(cors(corsOptions));
+
 app.use(helmet());
 app.use(cookieParser());
 app.use(express.json());
