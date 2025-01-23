@@ -3,8 +3,8 @@ const helmet = require('helmet');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
+const connectRoutes = require('./routes/connect.route');
 
-const connectRouter = require('./routers/connectRouter'); 
 
 const app = express()
 app.use(cors());
@@ -22,9 +22,8 @@ mongoose
         console.log(err);
     });
 
-app.use('/api/connect', connectRouter);
-
-
+app.use('/api', connectRoutes);
+    
 app.get('/',(req,res)=>{
     res.json({message:"Server running successfully"});
 })

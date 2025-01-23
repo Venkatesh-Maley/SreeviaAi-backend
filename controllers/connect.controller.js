@@ -1,27 +1,33 @@
-const { connectSchema } = require('../middlewares/validator');
+// src/controllers/connect.controller.js
 const Connect = require('../models/connect.model');
 
-exports.submitContactForm = async (req, res) => {
+// Create a new connection
+const createConnect = async (req, res) => {
+  try {
     const { name, email, phoneNumber, message } = req.body;
 
-    try {
-        // Validate request body
-        const { error, value } = connectSchema.validate({ name, email, phoneNumber, message });
-        if (error) {
-            return res.status(400).json({ success: false, message: error.details[0].message });
-        }
-
-        // Create a new contact form entry
-        const newMessage = new Connect({ name, email, phoneNumber, message });
-        const result = await newMessage.save();
-
-        res.status(201).json({
-            success: true,
-            message: "Your message has been received successfully. We will get back to you soon.",
-            data: result,
-        });
-    } catch (error) {
-        console.log(`Error while submitting contact form: ${error.message}`);
-        res.status(500).json({ success: false, message: "Server error. Please try again later." });
+    // Validate input
+    if (!name || !email || !phoneNumber || !message) {
+      return res.status(400).json({ message: 'All fields are required' });
     }
+
+    // Create a new document in the Connect collection
+    const newConnect = new Connect({
+      name,
+      email,
+      phoneNumber,
+      message,
+    });
+
+    await newConnect.save();
+    return res.status(201).json({ message: 'Connection created successfully', data: newConnect });
+  } catch (error) {
+    console.error('Error creating connection:', error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+// Export the controller functions
+module.exports = {
+  createConnect,
 };
