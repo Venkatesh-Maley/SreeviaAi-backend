@@ -1,24 +1,13 @@
 const express = require('express');
-const helmet = require('helmet');
 const cors = require('cors');
-const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const connectRoutes = require('./routes/connect.route');
 
 
 const app = express()
 
-const corsOptions = {
-    origin: 'https://sreevia-ai-main.vercel.app',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-  };
-app.use(cors(corsOptions));
-
-app.use(helmet());
-app.use(cookieParser());
+app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
 
 mongoose
     .connect(process.env.MONGO_URI)
