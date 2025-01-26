@@ -1,7 +1,5 @@
-// src/models/connect.model.js
 const mongoose = require('mongoose');
 
-// Define schema for Contact Us form
 const connectSchema = new mongoose.Schema(
   {
     name: {
@@ -23,11 +21,10 @@ const connectSchema = new mongoose.Schema(
     },
   },
   {
-    timestamps: true, // Automatically add createdAt and updatedAt
+    timestamps: true, 
   }
 );
 
-// Create a model based on the schema
 const Connect = mongoose.model('Connect', connectSchema);
 
 module.exports = Connect;

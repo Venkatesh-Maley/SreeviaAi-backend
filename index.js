@@ -1,8 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const connectRoutes = require('./routes/connect.route');
-
+const connectRoutes = require('./routers/connect.router');
+const authRouter = require('./routers/auth.router')
 
 const app = express()
 
@@ -19,6 +19,7 @@ mongoose
     });
 
 app.use('/api', connectRoutes);
+app.use('/api/auth',authRouter);
     
 app.get('/',(req,res)=>{
     res.json({message:"Server running successfully"});

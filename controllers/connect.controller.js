@@ -1,4 +1,3 @@
-// src/controllers/connect.controller.js
 const Connect = require('../models/connect.model');
 
 // Create a new connection
